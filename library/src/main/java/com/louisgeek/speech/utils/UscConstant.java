@@ -22,7 +22,7 @@ public class UscConstant {
 
     ///////////////////////////////UNISOUND/////////////////////////////////
     private static final String UNISOUND_BACKEND_MODEL_FEMALE = "backend_female";
-    private static final String UNISOUND_BACKEND_MODEL_LZL = "backend_lzl";//林志玲
+//    private static final String UNISOUND_BACKEND_MODEL_LZL = "backend_lzl";//林志玲 文件得加入
     //
     private static final String FILE_PATH_TTS_UNISOUND = FILE_PATH_TTS + "unisound" + File.separator;
     public static final String FILE_PATH_TTS_UNISOUND_UniSoundTTSModels = FILE_PATH_TTS_UNISOUND + "UniSoundTTSModels" + File.separator;
