@@ -91,8 +91,12 @@ public class _LogicalInternalStorageHelper {
             return statFs.getBlockSizeLong() * statFs.getBlockCountLong();
         }
     }
+    public static String getInternalStorageAvailableSpace_MB() {
+        float mb = getInternalStorageAvailableSpace() * 1.0f / 1024 / 1024;
+        return String.format(Locale.CHINA, "%.2f", mb);
+    }
 
-    public static String getInternalStorageAvailableSpaceFixed() {
+    public static String getInternalStorageAvailableSpace_GB() {
         float gb = getInternalStorageAvailableSpace() * 1.0f / 1024 / 1024 / 1024;
         return String.format(Locale.CHINA, "%.2f", gb);
     }

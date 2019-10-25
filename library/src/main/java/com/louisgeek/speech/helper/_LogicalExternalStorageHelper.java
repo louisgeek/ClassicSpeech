@@ -278,11 +278,18 @@ public class _LogicalExternalStorageHelper {
         }
     }
 
-    public static String getExternalStorageAvailableSpaceFixed() {
+    public static String getExternalStorageAvailableSpace_MB() {
         //获取 模拟存储
-        float mb = getExternalStorageAvailableSpace() * 1.0f / 1024 / 1024 / 1024;
+        float mb = getExternalStorageAvailableSpace() * 1.0f / 1024 / 1024;
         return String.format(Locale.CHINA, "%.2f", mb);
     }
+    public static String getExternalStorageAvailableSpace_GB() {
+        //获取 模拟存储
+        float gb = getExternalStorageAvailableSpace() * 1.0f / 1024 / 1024 / 1024;
+        return String.format(Locale.CHINA, "%.2f", gb);
+    }
+
+
 
     public static long getExternalStorageAvailableSpace() {
         //获取 模拟存储

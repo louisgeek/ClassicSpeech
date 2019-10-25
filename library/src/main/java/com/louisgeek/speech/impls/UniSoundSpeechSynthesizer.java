@@ -44,8 +44,8 @@ public class UniSoundSpeechSynthesizer implements ISpeechSynthesizer {
     }
 
     private void initOfflineModels() {
-        mFrontendModelPath = UscConstant.FILE_PATH_TTS_UNISOUND_UniSoundTTSModels + UscConstant.FILE_UNISOUND_FRONTEND_MODEL;
-        mBackendModelPath = UscConstant.FILE_PATH_TTS_UNISOUND_UniSoundTTSModels + UscConstant.FILE_UNISOUND_BACKEND_MODEL;
+        mFrontendModelPath = UscConstant.getUniSoundTTSModelsSdcardPath() + UscConstant.UniSoundTTSModel_frontend_model;
+        mBackendModelPath = UscConstant.getUniSoundTTSModelsSdcardPath() + UscConstant.UniSoundTTSModel_backend_model;
         File frontendModelFile = new File(mFrontendModelPath);
         File backendModelFile = new File(mBackendModelPath);
         if (frontendModelFile.exists() && backendModelFile.exists()) {
@@ -56,10 +56,10 @@ public class UniSoundSpeechSynthesizer implements ISpeechSynthesizer {
             Executors.newFixedThreadPool(2).execute(new Runnable() {
                 @Override
                 public void run() {
-                    String file_frontend = _AssetManagerTool.copyAssetsFile(mContext, UscConstant.FILE_PATH_TTS_UNISOUND_UniSoundTTSModels, UscConstant.FILE_UNISOUND_FRONTEND_MODEL
-                            , UscConstant.ASSETS_FILE_PATH_UNISOUND_FRONTEND_MODEL);
-                    String file_backend = _AssetManagerTool.copyAssetsFile(mContext, UscConstant.FILE_PATH_TTS_UNISOUND_UniSoundTTSModels, UscConstant.FILE_UNISOUND_BACKEND_MODEL
-                            , UscConstant.ASSETS_FILE_PATH_UNISOUND_BACKEND_MODEL);
+                    String file_frontend = _AssetManagerTool.copyAssetsFile(mContext, UscConstant.getUniSoundTTSModelsSdcardPath(), UscConstant.UniSoundTTSModel_frontend_model
+                            , UscConstant.getFrontendUniSoundTTSModelsAssetsPath());
+                    String file_backend = _AssetManagerTool.copyAssetsFile(mContext, UscConstant.getUniSoundTTSModelsSdcardPath(), UscConstant.UniSoundTTSModel_backend_model
+                            , UscConstant.getBackendUniSoundTTSModelsAssetsPath());
                     if (file_frontend != null && file_backend != null) {
                         //拷贝成功
                         initTts();
