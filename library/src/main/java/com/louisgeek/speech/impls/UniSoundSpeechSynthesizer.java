@@ -5,11 +5,11 @@ import android.media.AudioManager;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.louisgeek.speech.UscConstant;
+import com.louisgeek.speech._LibraryProvider;
 import com.louisgeek.speech.interfaces.ISpeechSynthesizer;
-import com.louisgeek.speech.LibraryProvider;
 import com.louisgeek.speech.interfaces.MySpeechSynthesizerListener;
-import com.louisgeek.speech.utils.AssetManagerTool;
-import com.louisgeek.speech.utils.UscConstant;
+import com.louisgeek.speech.tool._AssetManagerTool;
 import com.unisound.client.SpeechConstants;
 import com.unisound.client.SpeechSynthesizer;
 import com.unisound.client.SpeechSynthesizerListener;
@@ -25,7 +25,7 @@ import java.util.concurrent.TimeUnit;
  */
 
 public class UniSoundSpeechSynthesizer implements ISpeechSynthesizer {
-    private static final String TAG = "UniSoundSpeech";
+    private static final String TAG = "UniSoundSpeechSynthesiz";
     private SpeechSynthesizer mSpeechPlayer;
     private Context mContext;
     private String mFrontendModelPath;
@@ -36,15 +36,14 @@ public class UniSoundSpeechSynthesizer implements ISpeechSynthesizer {
     private static final boolean DEBUG = false;
     private MySpeechSynthesizerListener mMySpeechSynthesizerListener;
 
-
     public void init(boolean isSpeakEnAsPinyin, MySpeechSynthesizerListener mySpeechSynthesizerListener) {
-        mContext = LibraryProvider.provideAppContext();
+        mContext = _LibraryProvider.provideAppContext();
         mIsSpeakEnAsPinyin = isSpeakEnAsPinyin;
         mMySpeechSynthesizerListener = mySpeechSynthesizerListener;
-        initModels();
+        initOfflineModels();
     }
 
-    private void initModels() {
+    private void initOfflineModels() {
         mFrontendModelPath = UscConstant.FILE_PATH_TTS_UNISOUND_UniSoundTTSModels + UscConstant.FILE_UNISOUND_FRONTEND_MODEL;
         mBackendModelPath = UscConstant.FILE_PATH_TTS_UNISOUND_UniSoundTTSModels + UscConstant.FILE_UNISOUND_BACKEND_MODEL;
         File frontendModelFile = new File(mFrontendModelPath);
@@ -53,24 +52,29 @@ public class UniSoundSpeechSynthesizer implements ISpeechSynthesizer {
             Log.i(TAG, "离线模型文件已存在");
             initTts();
         } else {
+            //拷贝文件
             Executors.newFixedThreadPool(2).execute(new Runnable() {
                 @Override
                 public void run() {
-                    String file_frontend = AssetManagerTool.copyAssetsFile(mContext, UscConstant.FILE_PATH_TTS_UNISOUND_UniSoundTTSModels, UscConstant.FILE_UNISOUND_FRONTEND_MODEL
+                    String file_frontend = _AssetManagerTool.copyAssetsFile(mContext, UscConstant.FILE_PATH_TTS_UNISOUND_UniSoundTTSModels, UscConstant.FILE_UNISOUND_FRONTEND_MODEL
                             , UscConstant.ASSETS_FILE_PATH_UNISOUND_FRONTEND_MODEL);
-                    String file_backend = AssetManagerTool.copyAssetsFile(mContext, UscConstant.FILE_PATH_TTS_UNISOUND_UniSoundTTSModels, UscConstant.FILE_UNISOUND_BACKEND_MODEL
+                    String file_backend = _AssetManagerTool.copyAssetsFile(mContext, UscConstant.FILE_PATH_TTS_UNISOUND_UniSoundTTSModels, UscConstant.FILE_UNISOUND_BACKEND_MODEL
                             , UscConstant.ASSETS_FILE_PATH_UNISOUND_BACKEND_MODEL);
                     if (file_frontend != null && file_backend != null) {
+                        //拷贝成功
                         initTts();
+                    } else {
+                        Log.e(TAG, "run: 拷贝失败");
                     }
+
                 }
             });
           /*  new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    String file_frontend = AssetManagerTool.copyAssetsFile(mContext, UscConstant.FILE_PATH_TTS_UNISOUND_UniSoundTTSModels, UscConstant.FILE_UNISOUND_FRONTEND_MODEL
+                    String file_frontend = _AssetManagerTool.copyAssetsFile(mContext, UscConstant.FILE_PATH_TTS_UNISOUND_UniSoundTTSModels, UscConstant.FILE_UNISOUND_FRONTEND_MODEL
                             , UscConstant.ASSETS_FILE_PATH_UNISOUND_FRONTEND_MODEL);
-                    String file_backend = AssetManagerTool.copyAssetsFile(mContext, UscConstant.FILE_PATH_TTS_UNISOUND_UniSoundTTSModels, UscConstant.FILE_UNISOUND_BACKEND_MODEL
+                    String file_backend = _AssetManagerTool.copyAssetsFile(mContext, UscConstant.FILE_PATH_TTS_UNISOUND_UniSoundTTSModels, UscConstant.FILE_UNISOUND_BACKEND_MODEL
                             , UscConstant.ASSETS_FILE_PATH_UNISOUND_BACKEND_MODEL);
                     if (file_frontend != null && file_backend != null) {
                         initTts();

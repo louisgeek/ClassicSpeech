@@ -14,6 +14,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //
+        SpeechSynthesizerFactory.getInstance().init(false, null);
+
+        //
         findViewById(R.id.id_xxx).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

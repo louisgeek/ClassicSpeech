@@ -1,4 +1,4 @@
-package com.louisgeek.speech.utils;
+package com.louisgeek.speech.tool;
 
 import android.content.Context;
 import android.content.res.AssetManager;
@@ -8,7 +8,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 
-public class AssetManagerTool {
+public class _AssetManagerTool {
     private static final String TAG = "AssetManagerTool";
 
     /**

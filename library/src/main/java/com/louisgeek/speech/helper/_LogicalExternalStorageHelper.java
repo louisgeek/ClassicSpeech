@@ -1,4 +1,4 @@
-package com.louisgeek.speech.utils;
+package com.louisgeek.speech.helper;
 
 import android.content.Context;
 import android.os.Build;
@@ -8,7 +8,7 @@ import android.os.storage.StorageManager;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.louisgeek.speech.LibraryProvider;
+import com.louisgeek.speech._LibraryProvider;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -29,7 +29,7 @@ import java.util.Locale;
  * <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
  */
 
-public class LogicalExternalStorageHelper {
+public class _LogicalExternalStorageHelper {
     private static final String TAG = "LogicalExternalStorageT";
 
     /**
@@ -73,7 +73,7 @@ public class LogicalExternalStorageHelper {
     }
 
     public static boolean isPhysicalExternalStorageReadable(String path) {
-        Context appContext = LibraryProvider.provideAppContext();
+        Context appContext = _LibraryProvider.provideAppContext();
         try {
             StorageManager sm = (StorageManager) appContext.getSystemService(Context.STORAGE_SERVICE);
             Method method = StorageManager.class.getMethod("getVolumeState", String.class);
@@ -94,7 +94,7 @@ public class LogicalExternalStorageHelper {
      * 获取所有包括 模拟存储 + sd/tf 卡
      */
     private static String[] getLogicalExternalStoragePaths() {
-        Context appContext = LibraryProvider.provideAppContext();
+        Context appContext = _LibraryProvider.provideAppContext();
         try {
             StorageManager sm = (StorageManager) appContext.getSystemService(Context.STORAGE_SERVICE);
             Method getVolumePathsMethod = StorageManager.class.getMethod("getVolumePaths");
@@ -115,7 +115,7 @@ public class LogicalExternalStorageHelper {
      * 或
      * /storage/sdcard0
      * <p>
-     * {@link LogicalExternalStorageHelper#getExternalStorageDirectoryPath()}
+     * {@link _LogicalExternalStorageHelper#getExternalStorageDirectoryPath()}
      */
     public static String getPhysicalInternalStoragePath() {
         String[] paths = getLogicalExternalStoragePaths();
@@ -215,7 +215,7 @@ public class LogicalExternalStorageHelper {
      * @return
      */
     public static String getExternalCacheDirPath() {
-        Context appContext = LibraryProvider.provideAppContext();
+        Context appContext = _LibraryProvider.provideAppContext();
         return appContext.getExternalCacheDir().getAbsolutePath();
     }
 
@@ -241,7 +241,7 @@ public class LogicalExternalStorageHelper {
      * @return
      */
     public static String getExternalFilesDirPath_DirectoryDownloads() {
-        Context appContext = LibraryProvider.provideAppContext();
+        Context appContext = _LibraryProvider.provideAppContext();
         return appContext.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath();
     }
 
@@ -254,7 +254,7 @@ public class LogicalExternalStorageHelper {
      * 对应 设置->应用->应用详情里面的"清除数据"选项
      */
     public static String getExternalFilesDirPath() {
-        Context appContext = LibraryProvider.provideAppContext();
+        Context appContext = _LibraryProvider.provideAppContext();
         return appContext.getExternalFilesDir(null).getAbsolutePath();
     }
 

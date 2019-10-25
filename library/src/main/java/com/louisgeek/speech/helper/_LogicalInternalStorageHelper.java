@@ -1,11 +1,11 @@
-package com.louisgeek.speech.utils;
+package com.louisgeek.speech.helper;
 
 import android.content.Context;
 import android.os.Build;
 import android.os.Environment;
 import android.os.StatFs;
 
-import com.louisgeek.speech.LibraryProvider;
+import com.louisgeek.speech._LibraryProvider;
 
 import java.util.Locale;
 
@@ -23,7 +23,8 @@ import java.util.Locale;
  * 这下面的文件会在用户卸载我们的 app 时被系统删除
  * ROM 机身存储空间
  */
-public class LogicalInternalStorageHelper {
+public class _LogicalInternalStorageHelper {
+    private static final String TAG = "LogicalInternalStorageH";
     /**
      * /cache
      */
@@ -56,7 +57,7 @@ public class LogicalInternalStorageHelper {
      * /data/user/999/<application package>/cache
      */
     public static String getCacheDirPath() {
-        Context appContext = LibraryProvider.provideAppContext();
+        Context appContext = _LibraryProvider.provideAppContext();
         return appContext.getCacheDir().getAbsolutePath();
     }
 
@@ -71,7 +72,7 @@ public class LogicalInternalStorageHelper {
      * /data/user/999/<application package>/files
      */
     public static String getFilesDirPath() {
-        Context appContext = LibraryProvider.provideAppContext();
+        Context appContext = _LibraryProvider.provideAppContext();
         return appContext.getFilesDir().getAbsolutePath();
     }
 

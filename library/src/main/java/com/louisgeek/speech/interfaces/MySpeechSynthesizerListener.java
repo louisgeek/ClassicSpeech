@@ -5,6 +5,7 @@ package com.louisgeek.speech.interfaces;
  */
 public abstract class MySpeechSynthesizerListener {
     private static final String TAG = "MySpeechSynthesizerList";
+
     public void onInit() {
     }
 

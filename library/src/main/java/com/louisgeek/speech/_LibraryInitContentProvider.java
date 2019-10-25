@@ -13,14 +13,13 @@ import androidx.annotation.Nullable;
 /**
  * Created by louisgeek on 2018/10/15.
  */
-public class LibraryInitContentProvider extends ContentProvider {
+public class _LibraryInitContentProvider extends ContentProvider {
     private static final String TAG = "LibraryInitContentProvi";
-
     @Override
     public boolean onCreate() {
         Context appContext = getContext();
         if (appContext != null) {
-            LibraryProvider.init(appContext);
+            _LibraryProvider.initAppContext(appContext);
         } else {
             Log.e(TAG, "onCreate: appContext is null");
         }

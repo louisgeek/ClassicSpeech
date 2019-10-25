@@ -1,6 +1,8 @@
-package com.louisgeek.speech.utils;
+package com.louisgeek.speech;
 
 
+
+import com.louisgeek.speech.helper._StorageHelper;
 
 import java.io.File;
 
@@ -13,7 +15,7 @@ public class UscConstant {
 
 
     ////////////////////////////////COMM////////////////////////////////
-    private static final String FILE_PATH_SDCARD = StorageHelper.getSavePath("tts");
+    private static final String FILE_PATH_SDCARD = _StorageHelper.getSavePath("tts");
 
     private static final String FILE_PATH_BSOFT = FILE_PATH_SDCARD + "bsoft" + File.separator;
     private static final String FILE_PATH_IENR = FILE_PATH_BSOFT + "common" + File.separator;
