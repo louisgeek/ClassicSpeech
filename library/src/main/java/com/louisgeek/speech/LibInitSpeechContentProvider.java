@@ -13,8 +13,8 @@ import androidx.annotation.Nullable;
 /**
  * Created by louisgeek on 2018/10/15.
  */
-public class _LibraryInitContentProvider extends ContentProvider {
-    private static final String TAG = "LibraryInitContentProvi";
+public class LibInitSpeechContentProvider extends ContentProvider {
+    private static final String TAG = "LibInitSpeechContentPro";
     @Override
     public boolean onCreate() {
         Context appContext = getContext();

@@ -10,7 +10,7 @@ public class _LibraryProvider {
     private static boolean mDebug;
 
     /**
-     * _LibraryInitContentProvider 调用
+     * LibInitSpeechContentProvider 调用
      * @param context
      */
     public static void initAppContext(Context context) {

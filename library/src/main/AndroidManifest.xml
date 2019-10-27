@@ -7,8 +7,8 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <application>
         <provider
-            android:name="._LibraryInitContentProvider"
-            android:authorities="${applicationId}.LibraryInitContentProvider"
+            android:name=".LibInitSpeechContentProvider"
+            android:authorities="${applicationId}.LibInitSpeechContentProvider"
             android:exported="false" />
 
     </application>
