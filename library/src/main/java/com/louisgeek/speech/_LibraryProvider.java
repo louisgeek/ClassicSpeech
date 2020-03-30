@@ -5,7 +5,7 @@ import android.content.Context;
 /**
  * Created by louisgeek on 2018/9/20.
  */
-public class _LibraryProvider {
+ public class _LibraryProvider {
     private static Context mAppContext;
     private static boolean mDebug;
 

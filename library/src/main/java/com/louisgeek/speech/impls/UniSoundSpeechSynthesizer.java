@@ -31,6 +31,7 @@ public class UniSoundSpeechSynthesizer implements ISpeechSynthesizer {
     private String mFrontendModelPath;
     private String mBackendModelPath;
     private int code;
+    private int mSpeed = 50;
     private boolean isInited;
     private boolean mIsSpeakEnAsPinyin;
     private static final boolean DEBUG = false;
@@ -92,7 +93,7 @@ public class UniSoundSpeechSynthesizer implements ISpeechSynthesizer {
         mSpeechPlayer.setOption(SpeechConstants.TTS_KEY_FRONTEND_MODEL_PATH, mFrontendModelPath);// 设置前端模型
         mSpeechPlayer.setOption(SpeechConstants.TTS_KEY_BACKEND_MODEL_PATH, mBackendModelPath);// 设置后端模型
         //
-        //mSpeechPlayer.setOption(SpeechConstants.TTS_KEY_VOICE_SPEED, 0);//语速 范围 0 ~ 100
+        mSpeechPlayer.setOption(SpeechConstants.TTS_KEY_VOICE_SPEED, mSpeed);//语速 范围 0 ~ 100
         mSpeechPlayer.setOption(SpeechConstants.TTS_KEY_VOICE_PITCH, 50);//音高 范围 0 ~ 100  大而尖锐 普通女生推荐 40  林志玲推荐
         mSpeechPlayer.setOption(SpeechConstants.TTS_KEY_VOICE_VOLUME, 90);//音量 范围 0 ~ 100
 
@@ -100,6 +101,7 @@ public class UniSoundSpeechSynthesizer implements ISpeechSynthesizer {
         mSpeechPlayer.setOption(SpeechConstants.TTS_KEY_STREAM_TYPE, AudioManager.STREAM_MUSIC);//合成采样率 例如：AudioManager.STREAM_MUSIC
         //  mSpeechPlayer.setOption(SpeechConstants.TTS_KEY_PLAY_START_BUFFER_TIME, 10);//设置播放开始缓冲时间 0 ~ 500 单位
         //mSpeechPlayer.setOption(SpeechConstants.TTS_KEY_IS_READ_ENLISH_IN_PINYIN, true);//设置是否将英文按拼音读 如：wang->王
+//        mSpeechPlayer.setOption(SpeechConstants.TTS_KEY_IS_DEBUG, false);//boolean 设置是否将英文按拼音读
         mSpeechPlayer.setOption(SpeechConstants.TTS_KEY_IS_READ_ENLISH_IN_PINYIN, mIsSpeakEnAsPinyin);//设置是否将英文按拼音读 如：wang->王
         mSpeechPlayer.setOption(SpeechConstants.TTS_KEY_FRONT_SILENCE, 10);//语音开始段的静音时长 0 ~ 1000 单位 ms
         mSpeechPlayer.setOption(SpeechConstants.TTS_KEY_BACK_SILENCE, 100);//语音结尾段的静音时长 0 ~ 1000 单位 ms
@@ -241,7 +243,6 @@ public class UniSoundSpeechSynthesizer implements ISpeechSynthesizer {
 
                     Log.e(TAG, "run:inin ");
                     int voice_speed = (int) mSpeechPlayer.getOption(SpeechConstants.TTS_KEY_VOICE_SPEED);
-                    Log.e(TAG, "run:voice_speed " + voice_speed);
 //                    int front_silence = (int) mSpeechPlayer.getOption(SpeechConstants.TTS_KEY_FRONT_SILENCE);//ms
 //                    Log.e(TAG, "run:front_silence " + front_silence);
 //                    int back_silence = (int) mSpeechPlayer.getOption(SpeechConstants.TTS_KEY_BACK_SILENCE);//ms
@@ -287,7 +288,6 @@ public class UniSoundSpeechSynthesizer implements ISpeechSynthesizer {
             return;
         }
         Log.e(TAG, "speak:length " + text.length());
-        Log.e(TAG, "speak:TTS_KEY_VOICE_SPEED " + mSpeechPlayer.getOption(SpeechConstants.TTS_KEY_VOICE_SPEED));
         code = mSpeechPlayer.playText(text);
         log_d("code:" + code);
         mTotalText = text;
@@ -410,6 +410,16 @@ public class UniSoundSpeechSynthesizer implements ISpeechSynthesizer {
 //        2018-11-17 13:59:28.738 9461-9461/com.bsoft.mob.dw D/Log: onPlayEnd
 //        2018-11-17 20:58:04.249 9461-9461/com.bsoft.mob.dw D/Log: onPlayBegin
 //        2018-11-17 21:12:48.899 9461-9461/com.bsoft.mob.dw D/Log: onPlayEnd
+    }
+
+    @Override
+    public void setSpeechSpeed(float speed) {
+        cancel();
+        mSpeechPlayer = null;
+
+        mSpeed = (int) (speed * 50);
+        initOfflineModels();
+        speak(mTotalText);
     }
 
 

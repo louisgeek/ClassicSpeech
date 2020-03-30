@@ -31,4 +31,6 @@ public interface ISpeechSynthesizer {
     void destroy();
 
     void goProgress(float progress);
+
+    void setSpeechSpeed(float speed);
 }
