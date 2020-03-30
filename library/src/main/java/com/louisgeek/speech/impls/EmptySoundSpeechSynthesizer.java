@@ -70,4 +70,9 @@ public class EmptySoundSpeechSynthesizer implements ISpeechSynthesizer {
     public void goProgress(float progress) {
 
     }
+
+    @Override
+    public void setSpeechSpeed(float speed) {
+
+    }
 }
