@@ -253,6 +253,7 @@ public class UniSoundSpeechSynthesizer implements ISpeechSynthesizer {
 //                    mReadedTextLength += (1.0f * 5324 / 884) * period;
                     Log.e(TAG, "run: mReadedTextLength" + mReadedTextLength);
                     float progress = mReadedTextLength / mTotalText.length() * 100;
+                    progress= mSpeed / 50 * progress;
                     progress = progress > 100 ? 100 : progress;
                     Log.e(TAG, "run: progress" + progress);
                     if (mMySpeechSynthesizerListener != null) {
