@@ -27,8 +27,10 @@ public abstract class MySpeechSynthesizerListener {
     public void onPlayEnd() {
     }
 
-
     public void onStop() {
+    }
+
+    public void onEnd() {
     }
 
     public void onRelease() {
