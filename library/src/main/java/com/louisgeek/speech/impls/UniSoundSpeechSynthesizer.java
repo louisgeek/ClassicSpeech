@@ -165,6 +165,15 @@ public class UniSoundSpeechSynthesizer implements ISpeechSynthesizer {
                         mStatus = "onPlayEnd";
 
                         break;
+                    case SpeechConstants.TTS_STATUS_END:
+                        // 播放完成回调2
+                        Log.d(TAG, "onEnd");
+                        if (mMySpeechSynthesizerListener != null) {
+                            mMySpeechSynthesizerListener.onEnd();
+                        }
+                        mStatus = "onEnd";
+
+                        break;
                     case SpeechConstants.TTS_EVENT_PAUSE:
                         // 暂停回调
                         Log.d(TAG, "pause");
