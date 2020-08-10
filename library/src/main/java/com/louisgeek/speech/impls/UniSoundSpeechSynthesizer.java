@@ -262,7 +262,7 @@ public class UniSoundSpeechSynthesizer implements ISpeechSynthesizer {
 //                    mReadedTextLength += (1.0f * 5324 / 884) * period;
                     Log.e(TAG, "run: mReadedTextLength" + mReadedTextLength);
                     float progress = mReadedTextLength / mTotalText.length() * 100;
-                    progress= mSpeed / 50 * progress;
+                    progress = mSpeed / 50 * progress;
                     progress = progress > 100 ? 100 : progress;
                     Log.e(TAG, "run: progress" + progress);
                     if (mMySpeechSynthesizerListener != null) {
@@ -396,11 +396,14 @@ public class UniSoundSpeechSynthesizer implements ISpeechSynthesizer {
 
     @Override
     public void goProgress(float progress) {
+        if (mTotalText == null) {
+            return;
+        }
         Log.e(TAG, "goProgress:cancel " + progress);
         cancel();
         int needReadIndex = (int) (mTotalText.length() * progress / 100);
         mReadedTextLength = needReadIndex;
-        String needRead = mTotalText.substring(needReadIndex, mTotalText.length());
+        String needRead = mTotalText.substring(needReadIndex);
 
         if (!isInited) {
             Log.e(TAG, "语音组件尚未初始化完成，请稍后重试！");
