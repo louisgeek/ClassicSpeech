@@ -16,9 +16,6 @@ android {
         consumerProguardFiles 'consumer-rules.pro'
       /*app 需要配置  ndk {
 //            abiFilters "armeabi", "armeabi-v7a","arm64-v8a","mips","mips64","x86","x86_64"
-//            abiFilters "armeabi", "armeabi-v7a","arm64-v8a"
-//            abiFilters "armeabi", "armeabi-v7a"
-//            abiFilters "armeabi"
             ////webrtc ijkplayer 没有 armeabi so 库 但云知声只有 armeabi
             //把 云知声 so 库 放在 armeabi-v7a
             abiFilters "armeabi-v7a"
@@ -40,8 +37,10 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    testImplementation 'junit:junit:4.13'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+
+    implementation "androidx.startup:startup-runtime:1.0.0-alpha03"
 }
