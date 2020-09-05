@@ -6,9 +6,9 @@ import android.os.Environment;
 import android.os.StatFs;
 import android.os.storage.StorageManager;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.louisgeek.speech._LibraryProvider;
+import com.louisgeek.speech.tool._LogTool;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -37,10 +37,7 @@ public class _LogicalExternalStorageHelper {
      */
     public static boolean isExternalStorageWritable() {
         String state = Environment.getExternalStorageState();
-        if (Environment.MEDIA_MOUNTED.equals(state)) {
-            return true;
-        }
-        return false;
+        return Environment.MEDIA_MOUNTED.equals(state);
     }
 
     /**
@@ -48,11 +45,8 @@ public class _LogicalExternalStorageHelper {
      */
     public static boolean isExternalStorageReadable() {
         String state = Environment.getExternalStorageState();
-        if (Environment.MEDIA_MOUNTED.equals(state) ||
-                Environment.MEDIA_MOUNTED_READ_ONLY.equals(state)) {
-            return true;
-        }
-        return false;
+        return Environment.MEDIA_MOUNTED.equals(state) ||
+                Environment.MEDIA_MOUNTED_READ_ONLY.equals(state);
     }
 
 
@@ -61,13 +55,10 @@ public class _LogicalExternalStorageHelper {
             StorageManager sm = (StorageManager) context.getSystemService(Context.STORAGE_SERVICE);
             Method method = StorageManager.class.getMethod("getVolumeState", String.class);
             String state = (String) method.invoke(sm, path);
-            if (state.equals(Environment.MEDIA_MOUNTED)) {
-                return true;
-            }
-            return false;
+            return state.equals(Environment.MEDIA_MOUNTED);
         } catch (Exception e) {
             e.printStackTrace();
-            Log.e(TAG, "isPhysicalExternalStorageWritable: ", e);
+            _LogTool.e(TAG, "isPhysicalExternalStorageWritable: ", e);
         }
         return false;
     }
@@ -78,14 +69,11 @@ public class _LogicalExternalStorageHelper {
             StorageManager sm = (StorageManager) appContext.getSystemService(Context.STORAGE_SERVICE);
             Method method = StorageManager.class.getMethod("getVolumeState", String.class);
             String state = (String) method.invoke(sm, path);
-            if (state.equals(Environment.MEDIA_MOUNTED) ||
-                    state.equals(Environment.MEDIA_MOUNTED_READ_ONLY)) {
-                return true;
-            }
-            return false;
+            return state.equals(Environment.MEDIA_MOUNTED) ||
+                    state.equals(Environment.MEDIA_MOUNTED_READ_ONLY);
         } catch (Exception e) {
             e.printStackTrace();
-            Log.e(TAG, "isPhysicalExternalStorageReadable: ", e);
+            _LogTool.e(TAG, "isPhysicalExternalStorageReadable: ", e);
         }
         return false;
     }
@@ -103,7 +91,7 @@ public class _LogicalExternalStorageHelper {
             return paths;
         } catch (Exception e) {
             e.printStackTrace();
-            Log.e(TAG, "getLogicalExternalStoragePaths: ", e);
+            _LogTool.e(TAG, "getLogicalExternalStoragePaths: ", e);
         }
         return null;
     }

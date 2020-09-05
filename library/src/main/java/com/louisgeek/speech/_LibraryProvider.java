@@ -8,6 +8,7 @@ import android.content.Context;
 public class _LibraryProvider {
 
     private static Context mAppContext;
+    private static boolean mDebug;
 
     /**
      * @param context
@@ -18,6 +19,14 @@ public class _LibraryProvider {
 
     public static Context provideAppContext() {
         return mAppContext;
+    }
+
+    public static void initDebug(boolean debug) {
+        mDebug = debug;
+    }
+
+    public static boolean provideDebug() {
+        return mDebug;
     }
 
     //======================================================

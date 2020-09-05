@@ -3,13 +3,13 @@ package com.louisgeek.speech.impls;
 import android.content.Context;
 import android.media.AudioManager;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.louisgeek.speech.UscConstant;
 import com.louisgeek.speech._LibraryProvider;
 import com.louisgeek.speech.interfaces.ISpeechSynthesizer;
 import com.louisgeek.speech.interfaces.MySpeechSynthesizerListener;
 import com.louisgeek.speech.tool._AssetManagerTool;
+import com.louisgeek.speech.tool._LogTool;
 import com.unisound.client.SpeechConstants;
 import com.unisound.client.SpeechSynthesizer;
 import com.unisound.client.SpeechSynthesizerListener;
@@ -34,7 +34,6 @@ public class UniSoundSpeechSynthesizer implements ISpeechSynthesizer {
     private int mSpeed = 50;
     private boolean isInited;
     private boolean mIsSpeakEnAsPinyin;
-    private static final boolean DEBUG = false;
     private MySpeechSynthesizerListener mMySpeechSynthesizerListener;
 
     public void init(boolean isSpeakEnAsPinyin, MySpeechSynthesizerListener mySpeechSynthesizerListener) {
@@ -50,7 +49,7 @@ public class UniSoundSpeechSynthesizer implements ISpeechSynthesizer {
         File frontendModelFile = new File(mFrontendModelPath);
         File backendModelFile = new File(mBackendModelPath);
         if (frontendModelFile.exists() && backendModelFile.exists()) {
-            Log.i(TAG, "离线模型文件已存在");
+            _LogTool.i(TAG, "离线模型文件已存在");
             initTts();
         } else {
             //拷贝文件
@@ -65,7 +64,7 @@ public class UniSoundSpeechSynthesizer implements ISpeechSynthesizer {
                         //拷贝成功
                         initTts();
                     } else {
-                        Log.e(TAG, "run: 拷贝失败");
+                        _LogTool.e(TAG, "run: 拷贝失败");
                     }
 
                 }
@@ -113,7 +112,7 @@ public class UniSoundSpeechSynthesizer implements ISpeechSynthesizer {
                 switch (type) {
                     case SpeechConstants.TTS_EVENT_INIT:
                         // 初始化成功回调
-                        Log.d(TAG, "onInitFinish");
+                        _LogTool.d(TAG, "onInitFinish");
                         isInited = true;
                         if (mMySpeechSynthesizerListener != null) {
                             mMySpeechSynthesizerListener.onInit();
@@ -121,35 +120,35 @@ public class UniSoundSpeechSynthesizer implements ISpeechSynthesizer {
                         break;
                     case SpeechConstants.TTS_EVENT_SYNTHESIZER_START:
                         // 开始合成回调
-                        Log.d(TAG, "beginSynthesizer");
+                        _LogTool.d(TAG, "beginSynthesizer");
                         if (mMySpeechSynthesizerListener != null) {
                             mMySpeechSynthesizerListener.onSynthesizerStart();
                         }
                         break;
                     case SpeechConstants.TTS_EVENT_SYNTHESIZER_END:
                         // 合成结束回调
-                        Log.d(TAG, "endSynthesizer");
+                        _LogTool.d(TAG, "endSynthesizer");
                         if (mMySpeechSynthesizerListener != null) {
                             mMySpeechSynthesizerListener.onSynthesizerEnd();
                         }
                         break;
                     case SpeechConstants.TTS_EVENT_BUFFER_BEGIN:
                         // 开始缓存回调
-                        Log.d(TAG, "beginBuffer");
+                        _LogTool.d(TAG, "beginBuffer");
                         if (mMySpeechSynthesizerListener != null) {
                             mMySpeechSynthesizerListener.onBufferBegin();
                         }
                         break;
                     case SpeechConstants.TTS_EVENT_BUFFER_READY:
                         // 缓存完毕回调
-                        Log.d(TAG, "bufferReady");
+                        _LogTool.d(TAG, "bufferReady");
                         if (mMySpeechSynthesizerListener != null) {
                             mMySpeechSynthesizerListener.onBufferReady();
                         }
                         break;
                     case SpeechConstants.TTS_EVENT_PLAYING_START:
                         // 开始播放回调
-                        Log.d(TAG, "onPlayBegin");
+                        _LogTool.d(TAG, "onPlayBegin");
                         if (mMySpeechSynthesizerListener != null) {
                             mMySpeechSynthesizerListener.onPlayStart();
                         }
@@ -158,7 +157,7 @@ public class UniSoundSpeechSynthesizer implements ISpeechSynthesizer {
                         break;
                     case SpeechConstants.TTS_EVENT_PLAYING_END:
                         // 播放完成回调
-                        Log.d(TAG, "onPlayEnd");
+                        _LogTool.d(TAG, "onPlayEnd");
                         if (mMySpeechSynthesizerListener != null) {
                             mMySpeechSynthesizerListener.onPlayEnd();
                         }
@@ -167,7 +166,7 @@ public class UniSoundSpeechSynthesizer implements ISpeechSynthesizer {
                         break;
                     case SpeechConstants.TTS_STATUS_END:
                         // 播放完成回调2
-                        Log.d(TAG, "onEnd");
+                        _LogTool.d(TAG, "onEnd");
                         if (mMySpeechSynthesizerListener != null) {
                             mMySpeechSynthesizerListener.onEnd();
                         }
@@ -176,42 +175,42 @@ public class UniSoundSpeechSynthesizer implements ISpeechSynthesizer {
                         break;
                     case SpeechConstants.TTS_EVENT_PAUSE:
                         // 暂停回调
-                        Log.d(TAG, "pause");
+                        _LogTool.d(TAG, "pause");
                         if (mMySpeechSynthesizerListener != null) {
                             mMySpeechSynthesizerListener.onPause();
                         }
                         break;
                     case SpeechConstants.TTS_EVENT_RESUME:
                         // 恢复回调
-                        Log.d(TAG, "resume");
+                        _LogTool.d(TAG, "resume");
                         if (mMySpeechSynthesizerListener != null) {
                             mMySpeechSynthesizerListener.onResume();
                         }
                         break;
                     case SpeechConstants.TTS_EVENT_STOP:
                         // 停止回调
-                        Log.d(TAG, "stop");
+                        _LogTool.d(TAG, "stop");
                         if (mMySpeechSynthesizerListener != null) {
                             mMySpeechSynthesizerListener.onStop();
                         }
                         break;
                     case SpeechConstants.TTS_EVENT_RELEASE:
                         // 释放资源回调
-                        Log.d(TAG, "release");
+                        _LogTool.d(TAG, "release");
                         if (mMySpeechSynthesizerListener != null) {
                             mMySpeechSynthesizerListener.onRelease();
                         }
                         break;
                     default:
-                        Log.d(TAG, "TTS others:" + type);
+                        _LogTool.d(TAG, "TTS others:" + type);
                         break;
                 }
             }
 
             @Override
             public void onError(int type, String errorMSG) {
-                Log.e(TAG, "TTS type:" + type);
-                Log.e(TAG, "TTS errorMSG:" + errorMSG);
+                _LogTool.e(TAG, "TTS type:" + type);
+                _LogTool.e(TAG, "TTS errorMSG:" + errorMSG);
                 if (mMySpeechSynthesizerListener != null) {
                     mMySpeechSynthesizerListener.onError(type, errorMSG);
                 }
@@ -237,7 +236,7 @@ public class UniSoundSpeechSynthesizer implements ISpeechSynthesizer {
         mScheduledExecutorService.scheduleAtFixedRate(new Runnable() {
             @Override
             public void run() {
-                Log.e(TAG, "run:status " + mSpeechPlayer.getStatus());
+                _LogTool.e(TAG, "run:status " + mSpeechPlayer.getStatus());
 
                 if (mSpeechPlayer.getStatus() == SpeechConstants.TTS_STATUS_PLAYING) {
                     //  2 秒     3.5
@@ -250,21 +249,21 @@ public class UniSoundSpeechSynthesizer implements ISpeechSynthesizer {
                     //
                     //5324  884
 
-                    Log.e(TAG, "run:inin ");
+                    _LogTool.e(TAG, "run:inin ");
                     int voice_speed = (int) mSpeechPlayer.getOption(SpeechConstants.TTS_KEY_VOICE_SPEED);
 //                    int front_silence = (int) mSpeechPlayer.getOption(SpeechConstants.TTS_KEY_FRONT_SILENCE);//ms
-//                    Log.e(TAG, "run:front_silence " + front_silence);
+//                    _LogTool.e(TAG, "run:front_silence " + front_silence);
 //                    int back_silence = (int) mSpeechPlayer.getOption(SpeechConstants.TTS_KEY_BACK_SILENCE);//ms
-//                    Log.e(TAG, "run:back_silence " + back_silence);
+//                    _LogTool.e(TAG, "run:back_silence " + back_silence);
 //                    float speedTTT = (1.0f * 570 / 128) * (1.0f * voice_speed / 100);
                     // 1秒钟 4个字
                     mReadedTextLength += (1.0f * 560 / 128) * period;
 //                    mReadedTextLength += (1.0f * 5324 / 884) * period;
-                    Log.e(TAG, "run: mReadedTextLength" + mReadedTextLength);
+                    _LogTool.e(TAG, "run: mReadedTextLength" + mReadedTextLength);
                     float progress = mReadedTextLength / mTotalText.length() * 100;
                     progress = mSpeed / 50 * progress;
                     progress = progress > 100 ? 100 : progress;
-                    Log.e(TAG, "run: progress" + progress);
+                    _LogTool.e(TAG, "run: progress" + progress);
                     if (mMySpeechSynthesizerListener != null) {
                         mMySpeechSynthesizerListener.onProgress(progress);
                     }
@@ -290,14 +289,14 @@ public class UniSoundSpeechSynthesizer implements ISpeechSynthesizer {
     @Override
     public void speak(String text) {
         if (!isInited) {
-            Log.e(TAG, "语音组件尚未初始化完成，请稍后重试！");
+            _LogTool.e(TAG, "语音组件尚未初始化完成，请稍后重试！");
             return;
         }
         if (TextUtils.isEmpty(text)) {
             log_d("text isEmpty");
             return;
         }
-        Log.e(TAG, "speak:length " + text.length());
+        _LogTool.e(TAG, "speak:length " + text.length());
         code = mSpeechPlayer.playText(text);
         log_d("code:" + code);
         mTotalText = text;
@@ -307,7 +306,7 @@ public class UniSoundSpeechSynthesizer implements ISpeechSynthesizer {
     @Override
     public void speak(int textResid) {
         if (!isInited) {
-            Log.e(TAG, "语音组件尚未初始化完成，请稍后重试！");
+            _LogTool.e(TAG, "语音组件尚未初始化完成，请稍后重试！");
             return;
         }
         if (textResid <= 0) {
@@ -322,7 +321,7 @@ public class UniSoundSpeechSynthesizer implements ISpeechSynthesizer {
     @Override
     public void batchSpeak(List<String> texts) {
         if (!isInited) {
-            Log.e(TAG, "语音组件尚未初始化完成，请稍后重试！");
+            _LogTool.e(TAG, "语音组件尚未初始化完成，请稍后重试！");
             return;
         }
         if (texts != null) {
@@ -399,21 +398,21 @@ public class UniSoundSpeechSynthesizer implements ISpeechSynthesizer {
         if (mTotalText == null) {
             return;
         }
-        Log.e(TAG, "goProgress:cancel " + progress);
+        _LogTool.e(TAG, "goProgress:cancel " + progress);
         cancel();
         int needReadIndex = (int) (mTotalText.length() * progress / 100);
         mReadedTextLength = needReadIndex;
         String needRead = mTotalText.substring(needReadIndex);
 
         if (!isInited) {
-            Log.e(TAG, "语音组件尚未初始化完成，请稍后重试！");
+            _LogTool.e(TAG, "语音组件尚未初始化完成，请稍后重试！");
             return;
         }
         if (TextUtils.isEmpty(needRead)) {
             log_d("needRead isEmpty");
             return;
         }
-        Log.e(TAG, "speak:length " + needRead.length());
+        _LogTool.e(TAG, "speak:length " + needRead.length());
         code = mSpeechPlayer.playText(needRead);
         log_d("code:" + code);
         //5324  884
@@ -438,8 +437,6 @@ public class UniSoundSpeechSynthesizer implements ISpeechSynthesizer {
 
     //==============================================================================================
     private void log_d(String msg) {
-        if (DEBUG) {
-            Log.d(TAG, msg);
-        }
+        _LogTool.d(TAG, msg);
     }
 }

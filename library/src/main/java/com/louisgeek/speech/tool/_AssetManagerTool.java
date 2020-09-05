@@ -2,7 +2,6 @@ package com.louisgeek.speech.tool;
 
 import android.content.Context;
 import android.content.res.AssetManager;
-import android.util.Log;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -29,11 +28,11 @@ public class _AssetManagerTool {
             copyFromAssets(context, destFilename, assetsFilePath);
         } catch (Exception e) {
             e.printStackTrace();
-            Log.e(TAG, "文件复制失败2 " + e);
+            _LogTool.e(TAG, "文件复制失败2 " + e);
             return null;
         }
 
-        Log.i(TAG, "文件复制成功：" + destFilename);
+        _LogTool.i(TAG, "文件复制成功：" + destFilename);
         return destFilename;
     }
 
@@ -62,7 +61,7 @@ public class _AssetManagerTool {
                 is.close();
             } catch (Exception e) {
                 e.printStackTrace();
-                Log.e(TAG, "文件复制失败1 " + e);
+                _LogTool.e(TAG, "文件复制失败1 " + e);
             }
         }
     }
